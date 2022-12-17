@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wa:WebApplication
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:wa="https://mde.homework4/webapplication"
+    xsi:schemaLocation="https://mde.homework4/webapplication WebApplication.ecore"
+    name="SportWebsite">
+  <entities
+      name="Team">
+    <attributes
+        name="id"
+        type="int"
+        isPK="true"/>
+    <attributes
+        name="name"/>
+    <attributes
+        name="city"/>
+    <attributes
+        name="nation"/>
+  </entities>
+  <entities
+      name="Player">
+    <attributes
+        name="pid"
+        isPK="true"/>
+    <attributes
+        name="fullname"/>
+    <attributes
+        name="age"/>
+    <attributes
+        name="nationality"/>
+    <attributes
+        name="goals"
+        type="int"/>
+  </entities>
+  <pages name="AC Milan">
+    <individual
+        name="ac milan"
+        entity="//@entities.0">
+      <contents
+          name="1"
+          attribute="//@entities.0/@attributes.0"/>
+      <contents
+          name="AC Milan"
+          attribute="//@entities.0/@attributes.1"/>
+      <contents
+          name="Milan"
+          attribute="//@entities.0/@attributes.2"/>
+      <contents
+          name="Italy"
+          attribute="//@entities.0/@attributes.3"/>
+    </individual>
+  </pages>
+  <pages name="Chelsea">
+    <individual
+        name="chelsea"
+        entity="//@entities.0">
+      <contents
+          name="2"
+          attribute="//@entities.0/@attributes.0"/>
+      <contents
+          name="Chelsea"
+          attribute="//@entities.0/@attributes.1"/>
+      <contents
+          name="London"
+          attribute="//@entities.0/@attributes.2"/>
+      <contents
+          name="England"
+          attribute="//@entities.0/@attributes.3"/>
+    </individual>
+  </pages>
+  <pages name="O.Giroud">
+    <individual
+        name="o.giroud"
+        entity="//@entities.1">
+      <contents
+          name="1"
+          attribute="//@entities.1/@attributes.0"/>
+      <contents
+          name="Olivier Giroud"
+          attribute="//@entities.1/@attributes.1"/>
+      <contents
+          name="36"
+          attribute="//@entities.1/@attributes.2"/>
+      <contents
+          name="France"
+          attribute="//@entities.1/@attributes.3"/>
+      <contents
+          name="5"
+          attribute="//@entities.1/@attributes.4"/>
+    </individual>
+  </pages>
+  <pages name="K.Havertz">
+    <individual
+        name="k.havertz"
+        entity="//@entities.1">
+      <contents
+          name="2"
+          attribute="//@entities.1/@attributes.0"/>
+      <contents
+          name="Kai Havertz"
+          attribute="//@entities.1/@attributes.1"/>
+      <contents
+          name="23"
+          attribute="//@entities.1/@attributes.2"/>
+      <contents
+          name="Germany"
+          attribute="//@entities.1/@attributes.3"/>
+      <contents
+          name="2"
+          attribute="//@entities.1/@attributes.4"/>
+    </individual>
+  </pages>
+  <pages name="Champions League">
+    <list name="teamstandings"
+        entity="//@entities.0">
+      <links
+          individual="//@pages.1/@individual"
+          name="Chelsea"/>
+      <links
+          individual="//@pages.0/@individual"
+          name="Milan"/>
+    </list>
+    <list name="scorers"
+        entity="//@entities.1">
+      <links
+          individual="//@pages.3/@individual"
+          name="Kai Havertz"/>
+      <links
+          individual="//@pages.2/@individual"
+          name="Olivier Giroud"/>
+    </list>
+    <list name="assists"
+        entity="//@entities.1">
+      <links
+          individual="//@pages.3/@individual"
+          name="Kai Havertz"/>
+    </list>
+  </pages>
+</wa:WebApplication>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wa:WebApplication
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:wa="https://mde.h4/webapplication"
+    xsi:schemaLocation="https://mde.h4/webapplication WebApplication.ecore"
+    name="DISIMWebsite">
+  <entities
+      name="News">
+    <attributes
+        name="id"
+        type="int"
+        isPK="true"/>
+    <attributes
+        name="title"/>
+    <attributes
+        name="author"/>
+    <attributes
+        name="text"
+        type="text"/>
+    <attributes
+        name="date"
+        type="date"/>
+    <attributes
+        name="category"/>
+  </entities>
+  <entities
+      name="Course">
+    <attributes
+        name="cid"
+        type="int"
+        isPK="true"/>
+    <attributes
+        name="name"/>
+    <attributes
+        name="cfu"
+        type="int"/>
+    <attributes
+        name="language"/>
+    <attributes
+        name="semester"/>
+  </entities>
+  <pages name="News1">
+    <individual
+        name="n1"
+        entity="//@entities.0">
+      <contents
+          name="id1"
+          attribute="//@entities.0/@attributes.0"/>
+      <contents
+          name="Happy new year!"
+          attribute="//@entities.0/@attributes.1"/>
+      <contents
+          name="Jack Ryan"
+          attribute="//@entities.0/@attributes.2"/>
+      <contents
+          name="Text..."
+          attribute="//@entities.0/@attributes.3"/>
+      <contents
+          name="01/01/23"
+          attribute="//@entities.0/@attributes.4"/>
+      <contents
+          name="Holidays"
+          attribute="//@entities.0/@attributes.5"/>
+    </individual>
+  </pages>
+  <pages name="News2">
+    <individual
+        name="n2"
+        entity="//@entities.0">
+      <contents
+          name="id2"
+          attribute="//@entities.0/@attributes.0"/>
+      <contents
+          name="Merry Christmas!"
+          attribute="//@entities.0/@attributes.1"/>
+      <contents
+          name="John White"
+          attribute="//@entities.0/@attributes.2"/>
+      <contents
+          name="Text..."
+          attribute="//@entities.0/@attributes.3"/>
+      <contents
+          name="25/12/22"
+          attribute="//@entities.0/@attributes.4"/>
+      <contents
+          name="Holidays"
+          attribute="//@entities.0/@attributes.5"/>
+    </individual>
+  </pages>
+  <pages name="Indexes">
+    <list name="news"
+        entity="//@entities.0">
+      <links
+          individual="//@pages.0/@individual"
+          name="Happy New Year!"/>
+      <links
+          individual="//@pages.1/@individual"
+          name="Merry Christmas!"/>
+    </list>
+    <list name="courses"
+        entity="//@entities.1">
+      <links
+          individual="//@pages.3/@individual"
+          name="Model Driven Engineering"/>
+      <links
+          individual="//@pages.4/@individual"
+          name="Software Architectures"/>
+    </list>
+  </pages>
+  <pages name="ModelDrivenEngineering">
+    <individual
+        name="mde"
+        entity="//@entities.1">
+      <contents
+          name="1"
+          attribute="//@entities.1/@attributes.0"/>
+      <contents
+          name="Model Driven Engineering"
+          attribute="//@entities.1/@attributes.1"/>
+      <contents
+          name="6"
+          attribute="//@entities.1/@attributes.2"/>
+      <contents
+          name="English"
+          attribute="//@entities.1/@attributes.3"/>
+      <contents
+          name="First"
+          attribute="//@entities.1/@attributes.4"/>
+    </individual>
+  </pages>
+  <pages name="SoftwareArchitectures">
+    <individual
+        name="softarc"
+        entity="//@entities.1">
+      <contents
+          name="2"
+          attribute="//@entities.1/@attributes.0"/>
+      <contents
+          name="Software Architectures"
+          attribute="//@entities.1/@attributes.1"/>
+      <contents
+          name="6"
+          attribute="//@entities.1/@attributes.2"/>
+      <contents
+          name="English"
+          attribute="//@entities.1/@attributes.3"/>
+      <contents
+          name="First"
+          attribute="//@entities.1/@attributes.4"/>
+    </individual>
+  </pages>
+</wa:WebApplication>

@@ -1,0 +1,90 @@
+@Ecore(invocationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", settingDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot", validationDelegates="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot")
+@namespace(uri="https://mde.h4/webapplication", prefix="wa")
+package Web;
+
+@Ecore(constraints="UniqueEntityName")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(UniqueEntityName="entities->forAll(e | entities->select(ent | e.name = ent.name)->size()<=1)")
+class WebApplication extends NamedElement {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="Index.allInstances()->select(i | i.entity.name = entity)->size() + Individual.allInstances()->select(i | i.entity.name = entity)->size()")
+	op EBigInteger entityInstancesNumber(String[1] entity);
+	val Entity[*] entities;
+	val Page[*] pages;
+	attr _DataType version;
+	attr _DataType subversion;
+}
+
+@Ecore(constraints="UniqueAttributeName")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(UniqueAttributeName="Attribute.allInstances()->forAll(attr | attributes->select(a | attr.name = a.name)->size()<=1)")
+class Entity extends NamedElement {
+	val Attribute[*] attributes;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="Individual.allInstances()->select(entity=self)")
+	@"http://www.eclipse.org/OCL/Collection"(nullFree="false")
+	!ordered volatile derived ref Individual[*] individualPages;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="Index.allInstances()->select(entity=self)")
+	@"http://www.eclipse.org/OCL/Collection"(nullFree="false")
+	!ordered volatile derived ref Index[*] indexPages;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="DContent.allInstances()->select(entity=self)")
+	@"http://www.eclipse.org/OCL/Collection"(nullFree="false")
+	!ordered volatile derived ref DContent[*] pages;
+}
+
+class Attribute extends NamedElement {
+	attr _DataType type;
+	attr boolean[1] isPK;
+}
+
+class NamedElement {
+	attr String name;
+}
+
+@Ecore(constraints="NotDuplicatedLink")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(NotDuplicatedLink="Page.allInstances()->forAll(page | links->select(link | link.individual=page.individual)->size()<=1)")
+class Index extends NamedElement, DContent {
+
+	@"http://www.eclipse.org/OCL/Collection"(nullFree="false")
+	!ordered val Individual[*] individuals;
+	val Link[*] links;
+}
+
+enum _DataType {
+	string = 0;
+	int = 0;
+	date = 0;
+	text = 0;
+}
+
+@Ecore(constraints="PageType")
+@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(PageType="self.individual->size() = 1 and self.list->size()=0 or self.individual->size() = 0 and self.list->size()>=1")
+class Page extends NamedElement {
+	val Individual individual;
+	val Index[*] list;
+}
+
+class Individual extends NamedElement, DContent {
+	val ContentsHub[+] contents;
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(derivation="Link.allInstances()->select(individual=self)")
+	@"http://www.eclipse.org/OCL/Collection"(nullFree="false")
+	!ordered volatile derived ref Link[*] links;
+}
+
+class Link {
+
+	@"http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"(body="Index.allInstances().links->select(individual=self.individual)->size()")
+	op EBigInteger referencesNumber();
+	ref Individual[1] individual;
+	attr String name;
+}
+
+class ContentsHub extends NamedElement {
+	ref Attribute[1] attribute;
+}
+
+class DContent extends NamedElement {
+	ref Entity[1] entity;
+}
+
